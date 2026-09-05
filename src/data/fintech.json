@@ -1245,14 +1245,6 @@
     },
     {
         "evaluation_type": "2차평가",
-        "question": "심플한 주식투자 화면과 서비스 제공으로 미국의 젊은 층들에게 선풍적인 인기를 끌었던 증권회사는?",
-        "choices": [],
-        "answer": 0,
-        "explanation": "로빈후드",
-        "source": ""
-    },
-    {
-        "evaluation_type": "2차평가",
         "question": "오픈뱅킹에 대한 설명으로 옳지 않은 것은?",
         "choices": [
             "1. 여러 은행 앱을 설치할 필요가 없다",
