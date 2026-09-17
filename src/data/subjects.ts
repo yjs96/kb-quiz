@@ -23,7 +23,7 @@ export const subjects: Subject[] = [
     slug: "eunsiljong",
     title: "은행실무종합과정",
     description: "2026년 11월 7일 시험",
-    questions: financeMarketing as Question[],
+    questions: eunsiljong as Question[],
   },
   {
     slug: "finance-marketing",
