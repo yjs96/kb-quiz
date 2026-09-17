@@ -12,7 +12,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 
-const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-jikmu.vercel.app";
+const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-quiz.vercel.app";
 const shareImageUrl = `${siteUrl}/og-image.png`;
 
 function NotFoundComponent() {

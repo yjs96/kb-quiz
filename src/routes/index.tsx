@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { ContactCard } from "@/components/ContactCard";
 
-const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-jikmu.vercel.app";
+const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-quiz.vercel.app";
 const shareImageUrl = `${siteUrl}/og-image.png`;
 
 export const Route = createFileRoute("/")({
