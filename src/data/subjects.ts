@@ -1,3 +1,4 @@
+import eunsiljong from "./eunsiljong.json";
 import financeMarketing from "./finance-marketing.json";
 import fintech from "./fintech.json";
 
@@ -18,6 +19,12 @@ export type Subject = {
 };
 
 export const subjects: Subject[] = [
+  {
+    slug: "eunsiljong",
+    title: "은행실무종합과정",
+    description: "2026년 11월 7일 시험",
+    questions: financeMarketing as Question[],
+  },
   {
     slug: "finance-marketing",
     title: "금융마케팅",
