@@ -311,11 +311,11 @@ function QuizPage() {
       {!finished && current && (
         <div
           className="fixed inset-x-0 bottom-0 border-t border-border/60 bg-background/90 backdrop-blur-md"
-          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+          style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) / 2)" }}
         >
           <div
             className="mx-auto w-full max-w-md px-5 py-4"
-            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0px))" }}
+            style={{ paddingBottom: "max(0.5rem, calc(env(safe-area-inset-bottom, 0px) / 2))" }}
           >
             {submitted ? (
               <Button className="w-full" size="lg" onClick={next}>
