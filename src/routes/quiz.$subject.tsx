@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { getSubject, type Question } from "@/data/subjects";
+import { getEvaluationTypes, getSubject, type Question } from "@/data/subjects";
 
 export const Route = createFileRoute("/quiz/$subject")({
   loader: ({ params }) => {
@@ -52,9 +52,16 @@ type SavedState = {
 function QuizPage() {
   const { subject: slug } = Route.useParams();
   const subject = getSubject(slug)!;
-  const questions = subject.questions;
-  const storageKey = `quiz-progress-v1:${slug}`;
-
+  const [type, setType] = useState<string>("all");
+  const types = useMemo(() => getEvaluationTypes(subject), [subject]);
+  const questions = useMemo(
+    () =>
+      type === "all"
+        ? subject.questions
+        : subject.questions.filter((q) => q.evaluation_type === type),
+    [subject, type],
+  );
+  const storageKey = `quiz-progress-v1:${slug}:${type}`;
   const [orderIdx, setOrderIdx] = useState<number[]>(() => questions.map((_, i) => i));
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
@@ -153,7 +160,10 @@ function QuizPage() {
   }, [questions]);
 
   return (
-    <main className="min-h-screen bg-background pb-32">
+    <main
+      className="min-h-screen bg-background"
+      style={{ paddingBottom: "calc(8rem + env(safe-area-inset-bottom, 0px))" }}
+    >
       <header className="sticky top-0 z-10 border-b border-border/60 bg-background/85 backdrop-blur-md">
         <div className="mx-auto w-full max-w-md px-5 py-4">
           <div className="flex items-center justify-between">
@@ -173,7 +183,24 @@ function QuizPage() {
               다시 풀기
             </Button>
           </div>
-          <div className="mt-2 flex items-end justify-between">
+                    <div className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5">
+            {["all", ...types].map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setType(t)}
+                className={cn(
+                  "shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+                  type === t
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {t === "all" ? "전체" : t}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3 flex items-end justify-between">
             <div>
               <p className="text-xs font-medium tracking-wide text-muted-foreground">정답 / 전체</p>
               <p className="mt-0.5 text-2xl font-bold tabular-nums text-foreground">
@@ -281,7 +308,10 @@ function QuizPage() {
 
       {!finished && current && (
         <div className="fixed inset-x-0 bottom-0 border-t border-border/60 bg-background/90 backdrop-blur-md">
-          <div className="mx-auto w-full max-w-md px-5 py-4">
+          <div
+            className="mx-auto w-full max-w-md px-5 py-4"
+            style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }}
+          >
             {submitted ? (
               <Button className="w-full" size="lg" onClick={next}>
                 {index + 1 === total ? "결과 보기" : "다음 문제"}

@@ -42,3 +42,11 @@ export const subjects: Subject[] = [
 export function getSubject(slug: string): Subject | undefined {
   return subjects.find((s) => s.slug === slug);
 }
+
+export function getEvaluationTypes(subject: Subject): string[] {
+  const seen: string[] = [];
+  for (const q of subject.questions) {
+    if (!seen.includes(q.evaluation_type)) seen.push(q.evaluation_type);
+  }
+  return seen;
+}

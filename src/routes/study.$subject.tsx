@@ -1,10 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BookOpen, Check, ChevronDown, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { getSubject } from "@/data/subjects";
+import { getEvaluationTypes, getSubject } from "@/data/subjects";
 
 export const Route = createFileRoute("/study/$subject")({
   loader: ({ params }) => {
@@ -33,7 +33,15 @@ export const Route = createFileRoute("/study/$subject")({
 function StudyPage() {
   const { subject: slug } = Route.useParams();
   const subject = getSubject(slug)!;
-  const questions = subject.questions;
+  const [type, setType] = useState<string>("all");
+  const types = useMemo(() => getEvaluationTypes(subject), [subject]);
+  const questions = useMemo(
+    () =>
+      type === "all"
+        ? subject.questions
+        : subject.questions.filter((q) => q.evaluation_type === type),
+    [subject, type],
+  );
 
   const [open, setOpen] = useState<Set<number>>(() => new Set());
 
@@ -43,7 +51,8 @@ function StudyPage() {
 
   useEffect(() => {
     setVisible(PAGE);
-  }, [slug]);
+        setOpen(new Set());
+  }, [slug, type]);
 
   useEffect(() => {
     const el = sentinelRef.current;
@@ -99,6 +108,23 @@ function StudyPage() {
           <div className="mt-2">
             <h1 className="text-xl font-bold tracking-tight text-foreground">학습하기</h1>
             <p className="mt-0.5 text-xs text-muted-foreground">총 {questions.length}문제</p>
+                      </div>
+          <div className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5">
+            {["all", ...types].map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => setType(t)}
+                className={cn(
+                  "shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors",
+                  type === t
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-card text-muted-foreground hover:text-foreground",
+                )}
+              >
+                {t === "all" ? "전체" : t}
+              </button>
+            ))}
           </div>
         </div>
       </header>
