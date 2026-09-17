@@ -109,7 +109,9 @@ function StudyPage() {
             <h1 className="text-xl font-bold tracking-tight text-foreground">학습하기</h1>
             <p className="mt-0.5 text-xs text-muted-foreground">총 {questions.length}문제</p>
                       </div>
-          <div className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5">
+          <div
+            className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {["all", ...types].map((t) => (
               <button
                 key={t}

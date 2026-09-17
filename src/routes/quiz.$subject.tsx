@@ -183,7 +183,9 @@ function QuizPage() {
               다시 풀기
             </Button>
           </div>
-                    <div className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5">
+          <div
+            className="mt-3 -mx-5 flex gap-2 overflow-x-auto px-5 pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
             {["all", ...types].map((t) => (
               <button
                 key={t}
@@ -307,10 +309,13 @@ function QuizPage() {
       </div>
 
       {!finished && current && (
-        <div className="fixed inset-x-0 bottom-0 border-t border-border/60 bg-background/90 backdrop-blur-md">
+        <div
+          className="fixed inset-x-0 bottom-0 border-t border-border/60 bg-background/90 backdrop-blur-md"
+          style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+        >
           <div
             className="mx-auto w-full max-w-md px-5 py-4"
-            style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }}
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0px))" }}
           >
             {submitted ? (
               <Button className="w-full" size="lg" onClick={next}>
