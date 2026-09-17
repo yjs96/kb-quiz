@@ -12,6 +12,9 @@ import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
 
+const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-jikmu.vercel.app";
+const shareImageUrl = `${siteUrl}/og-image.png`;
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -78,7 +81,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "KB직무퀴즈 — 과목별 직무 학습 퀴즈" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "KB직무퀴즈" },
+      { property: "og:locale", content: "ko_KR" },
+      { property: "og:url", content: siteUrl },
+      { property: "og:title", content: "KB직무퀴즈 — 과목별 직무 학습 퀴즈" },
+      {
+        property: "og:description",
+        content: "금융마케팅, 핀테크, 디지털마케팅 등 과목별 문제를 풀며 실전 지식을 쌓아보세요.",
+      },
+      { property: "og:image", content: shareImageUrl },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "KB직무퀴즈 미리보기 이미지" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "KB직무퀴즈 — 과목별 직무 학습 퀴즈" },
+      {
+        name: "twitter:description",
+        content: "금융마케팅, 핀테크, 디지털마케팅 등 과목별 문제를 풀며 실전 지식을 쌓아보세요.",
+      },
+      { name: "twitter:image", content: shareImageUrl },
+      { name: "twitter:image:alt", content: "KB직무퀴즈 미리보기 이미지" },
       { name: "theme-color", content: "#000000" },
     ],
     links: [

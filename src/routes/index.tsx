@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 import { ContactCard } from "@/components/ContactCard";
 
+const siteUrl = import.meta.env.VITE_SITE_URL ?? "https://kb-jikmu.vercel.app";
+const shareImageUrl = `${siteUrl}/og-image.png`;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -13,11 +16,19 @@ export const Route = createFileRoute("/")({
         name: "description",
         content: "KB직무퀴즈에서 금융마케팅, 핀테크/디지털마케팅 등 과목을 골라 랜덤 문제를 한 문제씩 풀어보세요.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: siteUrl },
       { property: "og:title", content: "KB직무퀴즈 — 과목별 문제 풀이" },
       {
         property: "og:description",
         content: "KB직무퀴즈에서 금융마케팅, 핀테크/디지털마케팅 등 과목을 골라 랜덤 문제를 한 문제씩 풀어보세요.",
       },
+      { property: "og:image", content: shareImageUrl },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "KB직무퀴즈 미리보기 이미지" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: shareImageUrl },
     ],
   }),
   component: SubjectsPage,
